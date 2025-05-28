@@ -112,7 +112,9 @@ void main() {
       );
 
       expect(result.selection, isNotNull);
-      expect(result.selection!.offset, lessThanOrEqualTo(result.content.length));
+      expect(result.selection!.baseOffset, lessThanOrEqualTo(result.content.length));
+      expect(result.selection!.extentOffset, lessThanOrEqualTo(result.content.length));
+
     });
 
     test('should handle null selection gracefully', () {
