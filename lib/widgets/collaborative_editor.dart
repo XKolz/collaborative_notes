@@ -82,14 +82,18 @@ class _CollaborativeEditorState extends ConsumerState<CollaborativeEditor> {
                   color: widget.accentColor ?? Colors.blue,
                 ),
                 const SizedBox(width: 8),
-                Text(
-                  widget.title,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: widget.accentColor ?? Colors.blue,
+                // Wrap the title in Flexible to prevent overflow
+                Flexible(
+                  child: Text(
+                    widget.title,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: widget.accentColor ?? Colors.blue,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const Spacer(),
+                const SizedBox(width: 8),
                 // Status indicators
                 if (editorState.isLoading)
                   const SizedBox(
@@ -109,14 +113,18 @@ class _CollaborativeEditorState extends ConsumerState<CollaborativeEditor> {
                     size: 16,
                     color: Colors.green,
                   ),
-                const SizedBox(width: 8),
-                Text(
-                  editorState.hasUnsavedChanges
-                      ? 'Saving...'
-                      : editorState.isLoading
-                          ? 'Loading...'
-                          : 'Saved',
-                  style: Theme.of(context).textTheme.bodySmall,
+                const SizedBox(width: 4),
+                // Wrap status text in Flexible as well
+                Flexible(
+                  child: Text(
+                    editorState.hasUnsavedChanges
+                        ? 'Saving...'
+                        : editorState.isLoading
+                            ? 'Loading...'
+                            : 'Saved',
+                    style: Theme.of(context).textTheme.bodySmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
@@ -162,61 +170,79 @@ class _CollaborativeEditorState extends ConsumerState<CollaborativeEditor> {
             ),
             child: Row(
               children: [
-                documentStream.when(
-                  data: (document) => Row(
-                    children: [
-                      Icon(
-                        Icons.wifi,
-                        size: 16,
-                        color: Colors.green,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        'Connected',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                Flexible(
+                  child: documentStream.when(
+                    data: (document) => Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.wifi,
+                          size: 16,
                           color: Colors.green,
                         ),
-                      ),
-                    ],
-                  ),
-                  loading: () => Row(
-                    children: [
-                      Icon(
-                        Icons.wifi_off,
-                        size: 16,
-                        color: Colors.orange,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        'Connecting...',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            'Connected',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Colors.green,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    loading: () => Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.wifi_off,
+                          size: 16,
                           color: Colors.orange,
                         ),
-                      ),
-                    ],
-                  ),
-                  error: (error, stack) => Row(
-                    children: [
-                      Icon(
-                        Icons.error,
-                        size: 16,
-                        color: Colors.red,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        'Connection Error',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            'Connecting...',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Colors.orange,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    error: (error, stack) => Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.error,
+                          size: 16,
                           color: Colors.red,
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            'Connection Error',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Colors.red,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                const Spacer(),
-                Text(
-                  'Version: ${editorState.remoteVersion}',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.grey[600],
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    'Version: ${editorState.remoteVersion}',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.grey[600],
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.end,
                   ),
                 ),
               ],
