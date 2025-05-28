@@ -30,36 +30,9 @@ class CollaborativeEditorScreen extends ConsumerWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Instructions
-            Card(
-              color: Colors.blue[50],
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.lightbulb,
-                      color: Colors.blue[700],
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        'Type in either editor to see real-time collaboration in action! Changes sync instantly between both editors.',
-                        style: TextStyle(
-                          color: Colors.blue[700],
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            
             // Split view editors
             Expanded(
-              child: Row(
+              child: Column(
                 children: [
                   // Editor 1 - Alice
                   Expanded(
@@ -70,7 +43,8 @@ class CollaborativeEditorScreen extends ConsumerWidget {
                       accentColor: Colors.blue,
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  // const SizedBox(width: 16),
+                  const SizedBox(height: 16),
                   
                   // Editor 2 - Bob
                   Expanded(

@@ -169,6 +169,7 @@ class _CollaborativeEditorState extends ConsumerState<CollaborativeEditor> {
               ),
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
                   child: documentStream.when(
