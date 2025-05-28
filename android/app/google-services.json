@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "616671132787",
+    "project_id": "collaborative-notes-demo",
+    "storage_bucket": "collaborative-notes-demo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616671132787:android:f738721da2b1eb746c3e06",
+        "android_client_info": {
+          "package_name": "com.example.collaborative_notes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6aywjqB6aoJVohveqOytVBA9h4SItTs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
