@@ -52,15 +52,15 @@ You should see the default Flutter counter app running.
 1. Go to [Firebase Console](https://console.firebase.google.com/)
 2. Click "Create a project"
 3. Enter project name: `collaborative-notes-demo`
-4. Disable Google Analytics (optional for this demo)
+4. Disable Google Analytics
 5. Click "Create project"
 
 ### 2.2 Enable Firestore
 
 1. In your Firebase project console, click "Firestore Database"
 2. Click "Create database"
-3. Choose "Start in test mode" (for development)
-4. Select a location (choose closest to you)
+3. Choose "Start in test mode"
+4. Select a location
 5. Click "Done"
 
 ### 2.3 Configure Firestore Rules
@@ -96,7 +96,6 @@ dart pub global activate flutterfire_cli
 ### 2.5 Configure FlutterFire
 
 ```bash
-# In your project directory
 flutterfire configure
 
 ```
@@ -126,13 +125,9 @@ mkdir -p lib/widgets
 mkdir -p lib/screens
 ```
 
-### 5.7 Main App
+### 5 Tests
 
-Replace `lib/main.dart` with the content from the "Flutter Collaborative Notes - Main App" artifact above.
-
-### 5.8 Tests
-
-Create `test/diff_merge_service_test.dart` - copy from the "Diff-Merge Unit Tests" artifact above.
+Create `test/diff_merge_service_test.dart`
 
 ## Step 6: Generate Code
 
@@ -158,6 +153,12 @@ flutter run
 
 ```bash
 flutter test
+```
+
+Or test that particular file
+
+```bash
+flutter test test/diff_merge_service_test.dart
 ```
 
 # Also, i added this when i ran into errors
