@@ -18,7 +18,8 @@ class CollaborativeEditor extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<CollaborativeEditor> createState() => _CollaborativeEditorState();
+  ConsumerState<CollaborativeEditor> createState() =>
+      _CollaborativeEditorState();
 }
 
 class _CollaborativeEditorState extends ConsumerState<CollaborativeEditor> {
@@ -69,67 +70,71 @@ class _CollaborativeEditorState extends ConsumerState<CollaborativeEditor> {
             width: double.infinity,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: widget.accentColor?.withOpacity(0.1) ?? Colors.blue.withOpacity(0.1),
+              color: widget.accentColor?.withOpacity(0.1) ??
+                  Colors.blue.withOpacity(0.1),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
               ),
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
-                  Icons.edit_note,
-                  color: widget.accentColor ?? Colors.blue,
-                ),
-                const SizedBox(width: 8),
-                // Wrap the title in Flexible to prevent overflow
+                // Left: Icon + Title
                 Flexible(
-                  child: Text(
-                    widget.title,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: widget.accentColor ?? Colors.blue,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.edit_note,
+                        color: widget.accentColor ?? Colors.blue,
+                      ),
+                      const SizedBox(width: 8),
+                      Flexible(
+                        child: Text(
+                          widget.title,
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: widget.accentColor ?? Colors.blue,
+                                  ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Right: Save status
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (editorState.isLoading)
+                      const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    else if (editorState.hasUnsavedChanges)
+                      const Icon(Icons.circle, size: 12, color: Colors.orange)
+                    else
+                      const Icon(Icons.check_circle,
+                          size: 16, color: Colors.green),
+                    const SizedBox(width: 4),
+                    Text(
+                      editorState.hasUnsavedChanges
+                          ? 'Saving...'
+                          : editorState.isLoading
+                              ? 'Loading...'
+                              : 'Saved',
+                      style: Theme.of(context).textTheme.bodySmall,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                // Status indicators
-                if (editorState.isLoading)
-                  const SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                else if (editorState.hasUnsavedChanges)
-                  Icon(
-                    Icons.circle,
-                    size: 12,
-                    color: Colors.orange,
-                  )
-                else
-                  Icon(
-                    Icons.check_circle,
-                    size: 16,
-                    color: Colors.green,
-                  ),
-                const SizedBox(width: 4),
-                // Wrap status text in Flexible as well
-                Flexible(
-                  child: Text(
-                    editorState.hasUnsavedChanges
-                        ? 'Saving...'
-                        : editorState.isLoading
-                            ? 'Loading...'
-                            : 'Saved',
-                    style: Theme.of(context).textTheme.bodySmall,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  ],
                 ),
               ],
             ),
           ),
-          
+
           // Editor
           Expanded(
             child: Padding(
@@ -150,7 +155,8 @@ class _CollaborativeEditorState extends ConsumerState<CollaborativeEditor> {
                   contentPadding: EdgeInsets.zero,
                 ),
                 onChanged: (value) {
-                  ref.read(editorStateProvider(editorParams).notifier)
+                  ref
+                      .read(editorStateProvider(editorParams).notifier)
                       .updateContent(value, _controller.selection);
                 },
               ),
@@ -185,9 +191,10 @@ class _CollaborativeEditorState extends ConsumerState<CollaborativeEditor> {
                         Flexible(
                           child: Text(
                             'Connected',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.green,
-                            ),
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: Colors.green,
+                                    ),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -205,9 +212,10 @@ class _CollaborativeEditorState extends ConsumerState<CollaborativeEditor> {
                         Flexible(
                           child: Text(
                             'Connecting...',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.orange,
-                            ),
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: Colors.orange,
+                                    ),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -225,9 +233,10 @@ class _CollaborativeEditorState extends ConsumerState<CollaborativeEditor> {
                         Flexible(
                           child: Text(
                             'Connection Error',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.red,
-                            ),
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: Colors.red,
+                                    ),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -240,8 +249,8 @@ class _CollaborativeEditorState extends ConsumerState<CollaborativeEditor> {
                   child: Text(
                     'Version: ${editorState.remoteVersion}',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.grey[600],
-                    ),
+                          color: Colors.grey[600],
+                        ),
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.end,
                   ),

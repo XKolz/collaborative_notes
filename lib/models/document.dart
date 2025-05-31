@@ -14,7 +14,8 @@ class Document with _$Document {
     @Default(0) int version,
   }) = _Document;
 
-  factory Document.fromJson(Map<String, dynamic> json) => _$DocumentFromJson(json);
+  factory Document.fromJson(Map<String, dynamic> json) =>
+      _$DocumentFromJson(json);
 }
 
 @freezed
@@ -27,5 +28,6 @@ class DocumentChange with _$DocumentChange {
     required int version,
   }) = _DocumentChange;
 
-  factory DocumentChange.fromJson(Map<String, dynamic> json) => _$DocumentChangeFromJson(json);
+  factory DocumentChange.fromJson(Map<String, dynamic> json) =>
+      _$DocumentChangeFromJson(json);
 }

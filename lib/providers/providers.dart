@@ -6,15 +6,17 @@ import '../state/editor_state.dart';
 import 'editor_notifier.dart';
 
 /// StreamProvider.family for document streams
-final documentStreamProvider = StreamProvider.family<Document, String>((ref, documentId) {
+final documentStreamProvider =
+    StreamProvider.family<Document, String>((ref, documentId) {
   // Keep the stream alive even if widget is temporarily removed
   ref.keepAlive();
-  
+
   return FirebaseService.documentStream(documentId);
 });
 
 /// StateNotifierProvider for editor state management
-final editorStateProvider = StateNotifierProvider.family<EditorStateNotifier, EditorState, EditorParams>((ref, params) {
+final editorStateProvider = StateNotifierProvider.family<EditorStateNotifier,
+    EditorState, EditorParams>((ref, params) {
   final notifier = EditorStateNotifier(
     documentId: params.documentId,
     userId: params.userId,

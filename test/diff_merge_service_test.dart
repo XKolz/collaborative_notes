@@ -79,8 +79,10 @@ void main() {
       );
 
       expect(result.selection, isNotNull);
-      expect(result.selection!.baseOffset, lessThanOrEqualTo(result.content.length));
-      expect(result.selection!.extentOffset, lessThanOrEqualTo(result.content.length));
+      expect(result.selection!.baseOffset,
+          lessThanOrEqualTo(result.content.length));
+      expect(result.selection!.extentOffset,
+          lessThanOrEqualTo(result.content.length));
     });
 
     test('should handle empty content', () {
@@ -112,9 +114,10 @@ void main() {
       );
 
       expect(result.selection, isNotNull);
-      expect(result.selection!.baseOffset, lessThanOrEqualTo(result.content.length));
-      expect(result.selection!.extentOffset, lessThanOrEqualTo(result.content.length));
-
+      expect(result.selection!.baseOffset,
+          lessThanOrEqualTo(result.content.length));
+      expect(result.selection!.extentOffset,
+          lessThanOrEqualTo(result.content.length));
     });
 
     test('should handle null selection gracefully', () {
@@ -150,8 +153,10 @@ void main() {
 
     test('should handle large text differences', () {
       const baseContent = 'A short text';
-      const localContent = 'A short text with local modifications that are quite long';
-      const remoteContent = 'A short text with remote modifications that are also quite extensive';
+      const localContent =
+          'A short text with local modifications that are quite long';
+      const remoteContent =
+          'A short text with remote modifications that are also quite extensive';
 
       final result = DiffMergeService.mergeChanges(
         localContent: localContent,
@@ -161,7 +166,8 @@ void main() {
 
       expect(result.content, isNotEmpty);
       expect(result.hasConflict, isTrue);
-      expect(result.content, equals(remoteContent)); // Should prefer remote in conflicts
+      expect(result.content,
+          equals(remoteContent)); // Should prefer remote in conflicts
     });
   });
 }

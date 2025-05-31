@@ -178,3 +178,10 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-8.4-all.zip
 # Fix the Android Gradle Plugin version:
 
 id "com.android.application" version "8.3.0" apply false
+
+# Standard style across all your Dart files (indentation, spacing, line breaks).
+
+1. Format a single file:
+   dart format lib/main.dart
+2. Format the whole project:
+   dart format .

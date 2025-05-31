@@ -10,7 +10,7 @@ class CollaborativeEditorScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     const documentId = 'shared-document-1';
-    
+
     // Generate user IDs for simulation
     final user1Id = ref.watch(userIdProvider('alice'));
     final user2Id = ref.watch(userIdProvider('bob'));
@@ -45,7 +45,7 @@ class CollaborativeEditorScreen extends ConsumerWidget {
                   ),
                   // const SizedBox(width: 16),
                   const SizedBox(height: 16),
-                  
+
                   // Editor 2 - Bob
                   Expanded(
                     child: CollaborativeEditor(

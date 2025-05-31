@@ -24,7 +24,8 @@ class DiffMergeService {
     if (localContent == baseContent) {
       return MergeResult(
         content: remoteContent,
-        selection: _adjustSelection(localSelection, localContent, remoteContent),
+        selection:
+            _adjustSelection(localSelection, localContent, remoteContent),
         hasConflict: false,
       );
     }
@@ -64,7 +65,8 @@ class DiffMergeService {
       // Conflict detected - prefer remote changes (simple strategy)
       return MergeResult(
         content: remoteContent,
-        selection: _adjustSelection(localSelection, localContent, remoteContent),
+        selection:
+            _adjustSelection(localSelection, localContent, remoteContent),
         hasConflict: true,
       );
     }
@@ -103,7 +105,8 @@ class DiffMergeService {
     ];
   }
 
-  static bool _hasOverlappingChanges(List<TextDiff> localDiffs, List<TextDiff> remoteDiffs) {
+  static bool _hasOverlappingChanges(
+      List<TextDiff> localDiffs, List<TextDiff> remoteDiffs) {
     for (final localDiff in localDiffs) {
       for (final remoteDiff in remoteDiffs) {
         final localEnd = localDiff.start + localDiff.deleteLength;
@@ -124,7 +127,8 @@ class DiffMergeService {
     return before + diff.insert + after;
   }
 
-  static TextSelection? _adjustSelectionForDiff(TextSelection? selection, TextDiff diff) {
+  static TextSelection? _adjustSelectionForDiff(
+      TextSelection? selection, TextDiff diff) {
     if (selection == null) return null;
 
     final diffEnd = diff.start + diff.deleteLength;
@@ -155,12 +159,12 @@ class DiffMergeService {
     String newContent,
   ) {
     if (selection == null) return null;
-    
+
     // Simple adjustment - if new content is shorter, ensure selection is valid
     final maxOffset = newContent.length;
     final baseOffset = selection.baseOffset.clamp(0, maxOffset);
     final extentOffset = selection.extentOffset.clamp(0, maxOffset);
-    
+
     return TextSelection(
       baseOffset: baseOffset,
       extentOffset: extentOffset,

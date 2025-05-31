@@ -25,13 +25,13 @@ class EditorStateNotifier extends StateNotifier<EditorState> {
 
   void _initialize() async {
     state = state.copyWith(isLoading: true);
-    
+
     try {
       final document = await FirebaseService.getDocument(state.documentId);
       if (document != null) {
         _baseContent = document.content;
         _lastSavedContent = document.content;
-        
+
         state = state.copyWith(
           content: document.content,
           remoteVersion: document.version,
@@ -71,12 +71,12 @@ class EditorStateNotifier extends StateNotifier<EditorState> {
     }
 
     final remoteContent = document.content;
-    
+
     // If we have no local changes, just accept the remote content
     if (!state.hasUnsavedChanges) {
       _baseContent = remoteContent;
       _lastSavedContent = remoteContent;
-      
+
       state = state.copyWith(
         content: remoteContent,
         remoteVersion: document.version,
@@ -94,7 +94,7 @@ class EditorStateNotifier extends StateNotifier<EditorState> {
     );
 
     _baseContent = remoteContent;
-    
+
     state = state.copyWith(
       content: mergeResult.content,
       selection: mergeResult.selection,

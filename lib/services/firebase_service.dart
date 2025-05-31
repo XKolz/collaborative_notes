@@ -41,26 +41,31 @@ class FirebaseService {
     required String userId,
   }) async {
     final docRef = _firestore.collection(_documentsCollection).doc(documentId);
-    
+
     await _firestore.runTransaction((transaction) async {
       final snapshot = await transaction.get(docRef);
-      final currentVersion = snapshot.exists ? (snapshot.data()?['version'] ?? 0) : 0;
-      
-      transaction.set(docRef, {
-        'content': content,
-        'lastModified': FieldValue.serverTimestamp(),
-        'lastModifiedBy': userId,
-        'version': currentVersion + 1,
-      }, SetOptions(merge: true));
+      final currentVersion =
+          snapshot.exists ? (snapshot.data()?['version'] ?? 0) : 0;
+
+      transaction.set(
+          docRef,
+          {
+            'content': content,
+            'lastModified': FieldValue.serverTimestamp(),
+            'lastModifiedBy': userId,
+            'version': currentVersion + 1,
+          },
+          SetOptions(merge: true));
     });
   }
 
   /// Create a default document
   static Future<void> _createDefaultDocument(String documentId) async {
     final docRef = _firestore.collection(_documentsCollection).doc(documentId);
-    
+
     await docRef.set({
-      'content': 'Welcome to collaborative editing!\n\nStart typing to see real-time collaboration in action.',
+      'content':
+          'Welcome to collaborative editing!\n\nStart typing to see real-time collaboration in action.',
       'lastModified': FieldValue.serverTimestamp(),
       'lastModifiedBy': 'system',
       'version': 1,
@@ -69,10 +74,8 @@ class FirebaseService {
 
   /// Get document once
   static Future<Document?> getDocument(String documentId) async {
-    final snapshot = await _firestore
-        .collection(_documentsCollection)
-        .doc(documentId)
-        .get();
+    final snapshot =
+        await _firestore.collection(_documentsCollection).doc(documentId).get();
 
     if (!snapshot.exists) return null;
 
